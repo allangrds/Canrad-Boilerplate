@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>My index</title>
+        <title><?=$this->e($title)?></title>
         <!-- inject:css -->
         <!-- endinject -->
     </head>
