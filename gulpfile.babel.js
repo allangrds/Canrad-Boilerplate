@@ -7,7 +7,10 @@ import babel from 'gulp-babel';
 import sourcemaps from 'gulp-sourcemaps';
 import cleanCSS from 'gulp-clean-css';
 import uglify from 'gulp-uglify';
-import pump from 'pump';
+import autoprefixer from 'autoprefixer-stylus';
+import rev from 'gulp-rev';
+import inject from 'gulp-inject';
+import concat from 'gulp-concat';
 
 const dirs = {
   src: 'src',
@@ -29,27 +32,52 @@ const javascriptPaths = {
   dist: `${dirs.dist}/js/`
 };
 
+const htmlTarget = gulp.src('./pages/index.html');
+const cssTarget = gulp.src(`${cssPaths.dist}**/*.css`, {read: false});
+const jsTarget= gulp.src(`${javascriptPaths.dist}**/*.js`, {read: false});
 
 gulp.task('compressCss', function () {
-  return gulp.src(`${cssPaths.src}**/*.styl`)
+  gulp.src(`${cssPaths.src}**/*.styl`)
     .pipe(sourcemaps.init())
-    .pipe(stylus({
-      compress: true
-    }))
+    .pipe(
+      stylus({
+        compress: true,
+        use: autoprefixer()
+      })
+    )
     .pipe(cleanCSS())
     .pipe(sourcemaps.write())
+    .pipe(concat('style.css'))
+    .pipe(rev())
     .pipe(gulp.dest(cssPaths.dist));
+
+  return gulp.start('injectCss');
+});
+
+gulp.task('injectCss', function () {
+  return htmlTarget
+    .pipe(inject(cssTarget))
+    .pipe(gulp.dest('./pages'));
 });
 
 gulp.task('compressJs', function () {
-  return gulp.src(`${javascriptPaths.src}**/*.js`)
+  gulp.src(`${javascriptPaths.src}**/*.js`)
     .pipe(sourcemaps.init())
     .pipe(babel({
       presets: ['es2015']
     }))
     .pipe(uglify())
     .pipe(sourcemaps.write())
+    .pipe(rev())
     .pipe(gulp.dest(javascriptPaths.dist));
+
+  return gulp.start('injectJs');
+});
+
+gulp.task('injectJs', function () {
+  return htmlTarget
+  .pipe(inject(jsTarget))
+  .pipe(gulp.dest('./pages'));
 });
 
 gulp.task('compressImg', function () {
@@ -60,5 +88,11 @@ gulp.task('compressImg', function () {
     optimizationLevel: 5,
     svgoPlugins: [{removeViewBox: true}]
   }))
-  .pipe(gulp.dest(imagePaths.dist))
+  .pipe(gulp.dest(imagePaths.dist));
+});
+
+gulp.task('watch', function() {
+  gulp.watch(`${cssPaths.src}**/*.styl`, ['compressCss']);
+  gulp.watch(`${javascriptPaths.src}**/*.js`, ['compressJs']);
+  gulp.watch(`${imagePaths.src}**/*.{png,gif,jpg,svg}`, ['compressImg']);
 });
