@@ -4,6 +4,7 @@
     <include_path>
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/mikecao/flight" />
+      <path value="$PROJECT_DIR$/vendor/league/plates" />
     </include_path>
   </component>
 </project>

@@ -32,7 +32,7 @@ const javascriptPaths = {
   dist: `${dirs.dist}/js/`
 };
 
-const htmlTarget = gulp.src('./pages/index.html');
+const htmlTarget = gulp.src('./views/template.php');
 const cssTarget = gulp.src(`${cssPaths.dist}**/*.css`, {read: false});
 const jsTarget= gulp.src(`${javascriptPaths.dist}**/*.js`, {read: false});
 
@@ -57,7 +57,7 @@ gulp.task('compressCss', function () {
 gulp.task('injectCss', function () {
   return htmlTarget
     .pipe(inject(cssTarget))
-    .pipe(gulp.dest('./pages'));
+    .pipe(gulp.dest('./views'));
 });
 
 gulp.task('compressJs', function () {
@@ -77,7 +77,7 @@ gulp.task('compressJs', function () {
 gulp.task('injectJs', function () {
   return htmlTarget
   .pipe(inject(jsTarget))
-  .pipe(gulp.dest('./pages'));
+  .pipe(gulp.dest('./views'));
 });
 
 gulp.task('compressImg', function () {

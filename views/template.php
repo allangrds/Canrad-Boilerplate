@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-    <html>
+<html>
     <head>
         <title>My index</title>
         <!-- inject:css -->
-        <link rel="stylesheet" href="/dist/css/style-aba0fb9ccb.css">
         <!-- endinject -->
     </head>
     <body>
+
+    <?=$this->section('content')?>
 
     <!-- inject:js -->
     <!-- endinject -->

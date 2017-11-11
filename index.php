@@ -1,8 +1,12 @@
 <?php
     require 'vendor/autoload.php';
 
+
+
     Flight::route('/', function(){
-        echo 'hello world!';
+        $templates = new League\Plates\Engine('views');
+
+        echo $templates->render('index', ['name' => 'Jonathan']);
     });
 
     Flight::start();

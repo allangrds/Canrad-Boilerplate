@@ -3,6 +3,7 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/league/plates" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mikecao/flight" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -11,10 +12,12 @@
       <library name="PHP" type="php">
         <CLASSES>
           <root url="file://$MODULE_DIR$/vendor/composer" />
+          <root url="file://$MODULE_DIR$/vendor/league/plates" />
           <root url="file://$MODULE_DIR$/vendor/mikecao/flight" />
         </CLASSES>
         <SOURCES>
           <root url="file://$MODULE_DIR$/vendor/composer" />
+          <root url="file://$MODULE_DIR$/vendor/league/plates" />
           <root url="file://$MODULE_DIR$/vendor/mikecao/flight" />
         </SOURCES>
       </library>
