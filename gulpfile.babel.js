@@ -96,3 +96,5 @@ gulp.task('watch', function() {
   gulp.watch(`${javascriptPaths.src}**/*.js`, ['compressJs']);
   gulp.watch(`${imagePaths.src}**/*.{png,gif,jpg,svg}`, ['compressImg']);
 });
+
+gulp.task('default', ['compressImg', 'compressCss', 'compressJs', 'watch']);
