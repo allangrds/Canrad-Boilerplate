@@ -64,5 +64,6 @@ typings/
 # Others
 dist/
 vendor/
+**/.idea/
 
 # End of https://www.gitignore.io/api/node
