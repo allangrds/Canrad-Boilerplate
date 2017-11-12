@@ -46,6 +46,29 @@ Com o Conrad você tem/consegue:
   * [Monolog](https://github.com/Seldaek/monolog)
   * [PHPDotEnv](https://github.com/vlucas/phpdotenv)
 
+### Código do index.php
+```
+<?php
+    require __DIR__ . '/vendor/autoload.php';
+
+    use App\Log as Log;
+    use Dotenv\Dotenv as Dotenv;
+
+    //Para ler o .env
+    $dotenv = new Dotenv(__DIR__);
+    $dotenv->load();
+
+    //Inicia a configuração para lançar os logs
+    Log::init(__DIR__);
+
+    Flight::route('GET /', function() {
+        $templates = new League\Plates\Engine('views');
+        echo $templates->render('index', ['name' => 'Jonathan']);
+    });
+
+    Flight::start();
+```
+
 ### O que ainda queremos?
 * Criação de controllers no workflow do projeto;
 * Um modo mais simples e sofisticado de gerar os logs.
