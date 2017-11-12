@@ -2,6 +2,10 @@
     require __DIR__ . '/vendor/autoload.php';
 
     use App\Log as Log;
+    use Dotenv\Dotenv as Dotenv;
+
+    $dotenv = new Dotenv(__DIR__);
+    $dotenv->load();
 
     Log::init(__DIR__);
 
