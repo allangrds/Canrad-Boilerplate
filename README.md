@@ -10,7 +10,8 @@ Com o Conrad você tem/consegue:
 * Compilar, minificar e limpar seu JS e CSS, criando sempre um novo arquivo com um hash no nome;
 * Minificar suas imagens;
 * Inserir o JS e HTML em seu arquivo .html base. Você não precisa inserir esses assets manualmente, ele faz isso pra você.
-* Usar URLs amigáveis.
+* Usar URLs amigáveis;
+* Usar `.env` para você usar nas configurações que você acha importante.
 
 # Que dependências foram usadas?
 * NPM
@@ -35,6 +36,7 @@ Com o Conrad você tem/consegue:
   * [Paragonie Anti-CSRF](https://github.com/paragonie/anti-csrf)
   * [Respect Validation](https://github.com/Respect/Validation)
   * [Monolog](https://github.com/Seldaek/monolog)
+  * [PHPDotEnv](https://github.com/vlucas/phpdotenv)
 
 # O que ainda queremos?
 * Criação de controllers no workflow do projeto;
