@@ -11,7 +11,7 @@ Com o Conrad você tem/consegue:
 * Minificar suas imagens;
 * Inserir o JS e HTML em seu arquivo .html base. Você não precisa inserir esses assets manualmente, ele faz isso pra você.
 * Usar URLs amigáveis;
-* Usar `.env` para você usar nas configurações que você acha importante.
+* Usar `.env` para tratar informações de configuração que você acha importante.
 
 # Que dependências foram usadas?
 * NPM
