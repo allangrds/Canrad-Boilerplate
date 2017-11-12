@@ -1,5 +1,6 @@
 # Canrad
 [![devDependencies Status](https://david-dm.org/allangrds/canrad/dev-status.svg)](https://david-dm.org/allangrds/canrad?type=dev)
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/allangrds/Canrad/blob/master/LICENSE)
 
 ### O que é Canrad?
 Canrad é boirplate que criei, após sofrer ao fazer projetos simples de sites estáticos. Sempre no começo era aquele sofrimento para configurar o projeto, dependências, configurar alguns scripts. Então pq não criar um **boirplate** que facilitasse isso pra mim?
