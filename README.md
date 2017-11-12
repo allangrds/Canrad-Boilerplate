@@ -19,7 +19,7 @@ Com o Conrad você tem/consegue:
 
 `npm run watch` - Espera que arquivos dos assets sejam modificados para executar ações.
 
-## Estrutura de pastas
+### Estrutura de pastas
 ```
 ├── app
 │   ├── Log.php
