@@ -14,12 +14,31 @@ Com o Conrad você tem/consegue:
 * Escrever CSS usando Stylus, e JS usando ES6;
 * Usar `.env` para tratar informações de configuração que você acha importante.
 
-# Comandos NPM
+### Comandos
 `npm start` - Compila arquivos e roda o `watch` para esperar novas modificações;
 
 `npm run watch` - Espera que arquivos dos assets sejam modificados para executar ações.
 
-# Que dependências foram usadas?
+## Estrutura de pastas
+```
+├── app
+│   ├── Log.php
+├── src
+│   ├── img
+│   ├── js
+│   ├── stylus
+├── views
+│   ├── index.php
+│   ├── template.php
+├── .env
+├── .htaccess
+├── index.php
+├── package.json
+├── compose.json
+├── gulpfile.babel.js
+```
+
+### Que dependências foram usadas?
   * [Flight PHP Framework](flightphp.com/learn/)
   * [Plates Template](http://platesphp.com/)
   * [Paragonie Anti-CSRF](https://github.com/paragonie/anti-csrf)
@@ -27,6 +46,6 @@ Com o Conrad você tem/consegue:
   * [Monolog](https://github.com/Seldaek/monolog)
   * [PHPDotEnv](https://github.com/vlucas/phpdotenv)
 
-# O que ainda queremos?
+### O que ainda queremos?
 * Criação de controllers no workflow do projeto;
 * Um modo mais simples e sofisticado de gerar os logs.
