@@ -11,26 +11,10 @@ Com o Conrad você tem/consegue:
 * Minificar suas imagens;
 * Inserir o JS e HTML em seu arquivo .html base. Você não precisa inserir esses assets manualmente, ele faz isso pra você.
 * Usar URLs amigáveis;
+* Escrever CSS usando Stylus, e JS usando ES6;
 * Usar `.env` para tratar informações de configuração que você acha importante.
 
 # Que dependências foram usadas?
-* NPM
-    * autoprefixer-stylus;
-    * babel-cli;
-    * babel-preset-env;
-    * babel-preset-es2015;
-    * gulp;
-    * gulp-babel;
-    * gulp-clean-css;
-    * gulp-concat;
-    * gulp-imagemin;
-    * gulp-inject;
-    * gulp-rev;
-    * gulp-sourcemaps;
-    * gulp-stylus;
-    * gulp-uglify;
-    * pump.
-* Compose
   * [Flight PHP Framework](flightphp.com/learn/)
   * [Plates Template](http://platesphp.com/)
   * [Paragonie Anti-CSRF](https://github.com/paragonie/anti-csrf)
