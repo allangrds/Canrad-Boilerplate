@@ -16,6 +16,7 @@ Com o Conrad você tem/consegue:
 
 # Comandos NPM
 `npm start` - Compila arquivos e roda o `watch` para esperar novas modificações;
+
 `npm run watch` - Espera que arquivos dos assets sejam modificados para executar ações.
 
 # Que dependências foram usadas?
