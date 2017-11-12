@@ -1,9 +1,9 @@
 <?php
-    require 'vendor/autoload.php';
+    require __DIR__ . '/vendor/autoload.php';
 
-    use App\Log;
+    use App\Log as Log;
 
-    Log::info('é nóis');
+    Log::init(__DIR__);
 
     Flight::route('GET /', function() {
         $templates = new League\Plates\Engine('views');
