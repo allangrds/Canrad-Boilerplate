@@ -14,6 +14,10 @@ Com o Conrad você tem/consegue:
 * Escrever CSS usando Stylus, e JS usando ES6;
 * Usar `.env` para tratar informações de configuração que você acha importante.
 
+# Comandos NPM
+`npm start` - Compila arquivos e roda o `watch` para esperar novas modificações;
+`npm run watch` - Espera que arquivos dos assets sejam modificados para executar ações.
+
 # Que dependências foram usadas?
   * [Flight PHP Framework](flightphp.com/learn/)
   * [Plates Template](http://platesphp.com/)
