@@ -1,20 +1,22 @@
-'use strict';
+"use strict";
 
-import gulp from 'gulp';
-import stylus from 'gulp-stylus';
-import imagemin from 'gulp-imagemin';
-import babel from 'gulp-babel';
-import sourcemaps from 'gulp-sourcemaps';
-import cleanCSS from 'gulp-clean-css';
-import uglify from 'gulp-uglify';
-import autoprefixer from 'autoprefixer-stylus';
-import rev from 'gulp-rev';
-import inject from 'gulp-inject';
-import concat from 'gulp-concat';
+import gulp from "gulp";
+import stylus from "gulp-stylus";
+import imagemin from "gulp-imagemin";
+import babel from "gulp-babel";
+import sourcemaps from "gulp-sourcemaps";
+import cleanCSS from "gulp-clean-css";
+import uglify from "gulp-uglify";
+import autoprefixer from "autoprefixer-stylus";
+import rev from "gulp-rev";
+import inject from "gulp-inject";
+import concat from "gulp-concat";
+
+var gulpsync = require("gulp-sync")(gulp);
 
 const dirs = {
-  src: 'src',
-  dist: 'dist'
+  src: "src",
+  dist: "dist"
 };
 
 const cssPaths = {
@@ -32,12 +34,13 @@ const javascriptPaths = {
   dist: `${dirs.dist}/js/`
 };
 
-const htmlTarget = gulp.src('./views/template.php');
-const cssTarget = gulp.src(`${cssPaths.dist}**/*.css`, {read: false});
-const jsTarget= gulp.src(`${javascriptPaths.dist}**/*.js`, {read: false});
+const htmlTarget = gulp.src("./views/template.php");
+const cssTarget = gulp.src(`${cssPaths.dist}**/*.css`, { read: false });
+const jsTarget = gulp.src(`${javascriptPaths.dist}**/*.js`, { read: false });
 
-gulp.task('compressCss', function () {
-  gulp.src(`${cssPaths.src}**/*.styl`)
+gulp.task("compressCss", function() {
+  return gulp
+    .src(`${cssPaths.src}**/*.styl`)
     .pipe(sourcemaps.init())
     .pipe(
       stylus({
@@ -45,56 +48,61 @@ gulp.task('compressCss', function () {
         use: autoprefixer()
       })
     )
+    .pipe(concat("style.css"))
     .pipe(cleanCSS())
     .pipe(sourcemaps.write())
-    .pipe(concat('style.css'))
     .pipe(rev())
-    .pipe(gulp.dest(cssPaths.dist));
-
-  return gulp.start('injectCss');
+    .pipe(gulp.dest(cssPaths.dist))
+    .on("end", function() {
+      gulp.start("injectCss");
+    });
 });
 
-gulp.task('injectCss', function () {
-  return htmlTarget
-    .pipe(inject(cssTarget))
-    .pipe(gulp.dest('./views'));
+gulp.task("injectCss", function() {
+  return htmlTarget.pipe(inject(cssTarget)).pipe(gulp.dest("./views"));
 });
 
-gulp.task('compressJs', function () {
-  gulp.src(`${javascriptPaths.src}**/*.js`)
+gulp.task("compressJs", function() {
+  return gulp
+    .src(`${javascriptPaths.src}**/*.js`)
     .pipe(sourcemaps.init())
-    .pipe(babel({
-      presets: ['es2015']
-    }))
+    .pipe(
+      babel({
+        presets: ["es2015"]
+      })
+    )
     .pipe(uglify())
     .pipe(sourcemaps.write())
     .pipe(rev())
-    .pipe(gulp.dest(javascriptPaths.dist));
-
-  return gulp.start('injectJs');
+    .pipe(gulp.dest(javascriptPaths.dist))
+    .on("end", function() {
+      gulp.start("injectJs");
+    });
 });
 
-gulp.task('injectJs', function () {
-  return htmlTarget
-  .pipe(inject(jsTarget))
-  .pipe(gulp.dest('./views'));
+gulp.task("injectJs", function() {
+  return htmlTarget.pipe(inject(jsTarget)).pipe(gulp.dest("./views"));
 });
 
-gulp.task('compressImg', function () {
-  return gulp.src(`${imagePaths.src}**/*.{png,gif,jpg,svg}`)
-  .pipe(imagemin({
-    interlaced: true,
-    progressive: true,
-    optimizationLevel: 5,
-    svgoPlugins: [{removeViewBox: true}]
-  }))
-  .pipe(gulp.dest(imagePaths.dist));
+gulp.task("compressImg", function() {
+  return gulp
+    .src(`${imagePaths.src}**/*.{png,gif,jpg,svg}`)
+    .pipe(
+      imagemin({
+        interlaced: true,
+        progressive: true,
+        optimizationLevel: 5,
+        svgoPlugins: [{ removeViewBox: true }]
+      })
+    )
+    .pipe(gulp.dest(imagePaths.dist));
 });
 
-gulp.task('watch', function() {
-  gulp.watch(`${cssPaths.src}**/*.styl`, ['compressCss']);
-  gulp.watch(`${javascriptPaths.src}**/*.js`, ['compressJs']);
-  gulp.watch(`${imagePaths.src}**/*.{png,gif,jpg,svg}`, ['compressImg']);
+gulp.task("watch", function() {
+  gulp.watch(`${cssPaths.src}**/*.styl`, ["compressCss"]);
+  gulp.watch(`${javascriptPaths.src}**/*.js`, ["compressJs"]);
+  gulp.watch(`${imagePaths.src}**/*.{png,gif,jpg,svg}`, ["compressImg"]);
 });
 
-gulp.task('default', ['compressImg', 'compressCss', 'compressJs', 'watch']);
+//gulp.task('default', ['compressImg', 'compressCss', 'compressJs', 'watch']);
+gulp.task("default", ["compressCss"]);
