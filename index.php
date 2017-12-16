@@ -1,18 +1,40 @@
 <?php
-    require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
-    use App\Log as Log;
-    use Dotenv\Dotenv as Dotenv;
+use App\Log as Log;
+use Dotenv\Dotenv as Dotenv;
 
-    $dotenv = new Dotenv(__DIR__);
-    $dotenv->load();
+session_start();
 
-    Log::init(__DIR__);
+//.env read
+$dotenv = new Dotenv(__DIR__);
+$dotenv->load();
 
-    Flight::route('GET /', function() {
-        $templates = new League\Plates\Engine('views');
+//Info to plates where is template's folder
+$templates = new League\Plates\Engine('views');
 
-        echo $templates->render('index', ['name' => 'Jonathan']);
-    });
+//Initiate CSRF class
+$sessionProvider = new EasyCSRF\NativeSessionProvider();
+$easyCSRF = new EasyCSRF\EasyCSRF($sessionProvider);
 
-    Flight::start();
+Flight::route('GET /', function () {
+    $token = $GLOBALS['easyCSRF']->generate('my_token');
+
+    echo $GLOBALS['templates']->render('index', [
+        'name' => getenv('MAILER_USERNAME'),
+        'token' => $token
+    ]);
+    Log::info('Oi');
+});
+
+Flight::route('POST /', function () {
+    try {
+        $GLOBALS['easyCSRF']->check('my_token', $_POST['token'], 120);
+
+        echo 'Valid!';
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+});
+
+Flight::start();
