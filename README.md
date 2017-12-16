@@ -30,7 +30,7 @@ Com o Conrad você tem/consegue:
 ├── views
 │   ├── index.php
 │   ├── template.php
-├── .env
+├── .env.sample
 ├── .htaccess
 ├── index.php
 ├── package.json
@@ -39,36 +39,59 @@ Com o Conrad você tem/consegue:
 ```
 
 ### Que dependências foram usadas?
-  * [Flight PHP Framework](flightphp.com/learn/)
-  * [Plates Template](http://platesphp.com/)
-  * [Paragonie Anti-CSRF](https://github.com/paragonie/anti-csrf)
-  * [Respect Validation](https://github.com/Respect/Validation)
-  * [Monolog](https://github.com/Seldaek/monolog)
-  * [PHPDotEnv](https://github.com/vlucas/phpdotenv)
+  * [Flight PHP Framework](flightphp.com/learn/) - Framework
+  * [Plates Template](http://platesphp.com/) - Template
+  * [EasyCSRF](https://github.com/gilbitron/EasyCSRF) - CSRF
+  * [Respect Validation](https://github.com/Respect/Validation) - Validação de dados
+  * [Monolog](https://github.com/Seldaek/monolog) - Logs
+  * [PHPDotEnv](https://github.com/vlucas/phpdotenv) - Para leitura de .env
 
 ### Código do index.php
 ```
 <?php
-    require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
-    use App\Log as Log;
-    use Dotenv\Dotenv as Dotenv;
+use App\Log as Log;
+use Dotenv\Dotenv as Dotenv;
 
-    //Para ler o .env
-    $dotenv = new Dotenv(__DIR__);
-    $dotenv->load();
+session_start();
 
-    //Inicia a configuração para lançar os logs
-    Log::init(__DIR__);
+//Para leitura do .env
+$dotenv = new Dotenv(__DIR__);
+$dotenv->load();
 
-    Flight::route('GET /', function() {
-        $templates = new League\Plates\Engine('views');
-        echo $templates->render('index', ['name' => 'Jonathan']);
-    });
+//Informa ao Plates a pasta com os templates
+$templates = new League\Plates\Engine('views');
 
-    Flight::start();
+//Instância a classe do Anti-CSRF
+$sessionProvider = new EasyCSRF\NativeSessionProvider();
+$easyCSRF = new EasyCSRF\EasyCSRF($sessionProvider);
+
+Flight::route('GET /', function () {
+    $token = $GLOBALS['easyCSRF']->generate('my_token');
+
+    echo $GLOBALS['templates']->render('index', [
+        'name' => getenv('MAILER_USERNAME'),
+        'token' => $token
+    ]);
+
+    Log::info('/ route has been called');
+});
+
+Flight::route('POST /', function () {
+    try {
+        $GLOBALS['easyCSRF']->check('my_token', $_POST['token'], 120);
+
+        echo 'Valid!';
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+});
+
+Flight::start();
 ```
 
 ### O que ainda queremos?
 * Criação de controllers no workflow do projeto;
-* Um modo mais simples e sofisticado de gerar os logs.
+* Um modo mais simples e sofisticado de gerar os logs;
+* Corrigir a compilação de JS e CSS.

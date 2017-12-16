@@ -6,14 +6,14 @@ use Dotenv\Dotenv as Dotenv;
 
 session_start();
 
-//.env read
+//Para leitura do .env
 $dotenv = new Dotenv(__DIR__);
 $dotenv->load();
 
-//Info to plates where is template's folder
+//Informa ao Plates a pasta com os templates
 $templates = new League\Plates\Engine('views');
 
-//Initiate CSRF class
+//Instância a classe do Anti-CSRF
 $sessionProvider = new EasyCSRF\NativeSessionProvider();
 $easyCSRF = new EasyCSRF\EasyCSRF($sessionProvider);
 
@@ -24,7 +24,8 @@ Flight::route('GET /', function () {
         'name' => getenv('MAILER_USERNAME'),
         'token' => $token
     ]);
-    Log::info('Oi');
+
+    Log::info('/ route has been called');
 });
 
 Flight::route('POST /', function () {
